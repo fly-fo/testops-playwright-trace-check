@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ALLURE_ENDPOINT: ${{ vars.ALLURE_ENDPOINT }}
-      ALLURE_PROJECT_ID: ${{ vars.ALLURE_PROJECT_ID }}
+      ALLURE_ENDPOINT: "https://demo.testops.cloud"
+      ALLURE_PROJECT_ID: "4601"
       ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
-      ALLURE_RESULTS: allure-results
+      ALLURE_RESULTS: "allure-results"
       ALLURE_LAUNCH_NAME: "Playwright Trace Viewer Check - GitHub Actions #${{ github.run_number }}"
 
     steps:
@@ -37,4 +37,3 @@ jobs:
 
       - name: Run Playwright tests and upload to TestOps
         run: ./allurectl watch -- npx playwright test
-        
