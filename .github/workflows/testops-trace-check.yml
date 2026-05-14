@@ -1,0 +1,40 @@
+name: TestOps Playwright Trace Check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      ALLURE_ENDPOINT: ${{ vars.ALLURE_ENDPOINT }}
+      ALLURE_PROJECT_ID: ${{ vars.ALLURE_PROJECT_ID }}
+      ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
+      ALLURE_RESULTS: allure-results
+      ALLURE_LAUNCH_NAME: "Playwright Trace Viewer Check - GitHub Actions #${{ github.run_number }}"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium
+
+      - name: Install allurectl
+        run: |
+          curl -fsSL https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64 -o allurectl
+          chmod +x allurectl
+          ./allurectl --version
+
+      - name: Run Playwright tests and upload to TestOps
+        run: ./allurectl watch -- npx playwright test
+        
