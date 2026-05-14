@@ -1,0 +1,12 @@
+{
+  "name": "testops-playwright-trace-check",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.0",
+    "allure-playwright": "^3.0.0"
+  }
+}
